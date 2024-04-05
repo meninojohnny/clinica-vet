@@ -1,31 +1,44 @@
 package com.johnny.model;
 
-import java.io.Serializable;
+import com.johnny.enums.GenderType;
+import com.johnny.enums.SpeciesType;
+import com.johnny.generic.GenericEntity;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Patient implements Serializable {
+public class Patient extends GenericEntity {
     
     @Id
     @SequenceGenerator(sequenceName = "seq_patient", name = "seq_patient", initialValue = 1)
     @GeneratedValue(generator = "seq_patient", strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    private String species;
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
+    
+    private SpeciesType species;
     
     private String race;
     
-    private String dateOfBirth;
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
     
     private String medicalStory;
     
     private String vaccinations;
     
+    @OneToOne
     private Owner owner;
 
     public Long getId() {
@@ -36,11 +49,19 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public String getSpecies() {
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
+    
+    public SpeciesType getSpecies() {
         return species;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(SpeciesType species) {
         this.species = species;
     }
 
@@ -52,11 +73,11 @@ public class Patient implements Serializable {
         this.race = race;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

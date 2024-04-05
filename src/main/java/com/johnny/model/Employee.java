@@ -1,16 +1,22 @@
 package com.johnny.model;
 
-import java.io.Serializable;
+import com.johnny.enums.GenderType;
+import com.johnny.enums.OfficeType;
+import com.johnny.generic.GenericEntity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Employee implements Serializable {
+public class Employee extends GenericEntity {
    
     @Id
     @SequenceGenerator(sequenceName = "seq_employee", name = "seq_employee", initialValue = 1)
@@ -19,12 +25,17 @@ public class Employee implements Serializable {
     
     private String name;
     
-    private String office;
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
+    
+    @Enumerated(EnumType.STRING)
+    private OfficeType office;
     
     private String phone;
     
     private String email;
     
+    @Temporal(TemporalType.DATE)
     private Date dateOfHiring;
 
     public Long getId() {
@@ -43,11 +54,19 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getOffice() {
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
+
+    public OfficeType getOffice() {
         return office;
     }
 
-    public void setOffice(String office) {
+    public void setOffice(OfficeType office) {
         this.office = office;
     }
 

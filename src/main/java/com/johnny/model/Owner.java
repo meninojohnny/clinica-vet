@@ -1,16 +1,22 @@
 package com.johnny.model;
 
-import java.io.Serializable;
+import com.johnny.enums.GenderType;
+import com.johnny.generic.GenericEntity;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Owner implements Serializable {
+public class Owner extends GenericEntity {
     
     @Id
     @SequenceGenerator(sequenceName = "seq_owner", name = "seq_owner", initialValue = 1)
@@ -19,10 +25,15 @@ public class Owner implements Serializable {
     
     private String name;
     
-    private String Adress;
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Adress Adress;
     
     private String phone;
     
+    @OneToMany
     private List pets;
 
     public Long getId() {
@@ -41,13 +52,22 @@ public class Owner implements Serializable {
         this.name = name;
     }
 
-    public String getAdress() {
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
+    
+    public Adress getAdress() {
         return Adress;
     }
 
-    public void setAdress(String Adress) {
+    public void setAdress(Adress Adress) {
         this.Adress = Adress;
     }
+    
 
     public String getPhone() {
         return phone;

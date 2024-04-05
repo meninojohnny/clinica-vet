@@ -1,30 +1,38 @@
 package com.johnny.model;
 
-import java.io.Serializable;
+import com.johnny.generic.GenericEntity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Consultation implements Serializable {
+public class Consultation extends GenericEntity {
     
     @Id
     @SequenceGenerator(sequenceName = "seq_consultation", name = "seq_consultation", initialValue = 1)
     @GeneratedValue(generator = "seq_consultation", strategy = GenerationType.SEQUENCE)
     private Long id;
     
+    @Temporal(TemporalType.DATE)
     private Date date;
     
+    @Temporal(TemporalType.DATE)
     private Date hour;
     
+    @OneToOne
     private Owner owner;
     
+    @OneToOne
     private Patient patient;
     
+    @OneToOne
     private Employee veterinarian;
     
     private String reasonForConsultation;
@@ -104,6 +112,7 @@ public class Consultation implements Serializable {
     public void setTreatment(String treatment) {
         this.treatment = treatment;
     }
+    
 
     @Override
     public int hashCode() {

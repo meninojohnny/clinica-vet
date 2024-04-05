@@ -5,8 +5,31 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <style>
+            .div-input {
+                margin-bottom: 15px
+            }
+
+            .input-label {
+                font-weight: bold
+            }
+        </style>
+
     </h:head>
+
     <h:body>
-        Hello from Facelets
+
+        <p:panel>
+
+            <p:menubar>
+                <p:submenu label="Proprietário" icon="pi pi-user">
+                    <p:menuitem value="Cadastrar" icon="pi pi-user-plus" url="owner.xhtml"/>
+                    <p:divider />
+                    <p:menuitem value="Gerenciar" icon="pi pi-sliders-h" url="tenantManager.xhtml"/>
+                </p:submenu>
+            </p:menubar>
+
+        </p:panel>
+
     </h:body>
 </html>
